@@ -1,0 +1,53 @@
+{
+  "name": "@phenomnomnominal/debug",
+  "version": "0.1.0",
+  "description": "Very lazy tool for adding debug logging",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "author": "Craig Spence <craigspence0@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phenomnomnominal/debug"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "npm run clean && npm run compile && npm run lint && npm run test",
+    "clean": "rimraf dist && rimraf reports",
+    "compile": "tsc",
+    "lint": "npm run lint:src && npm run lint:test",
+    "lint:src": "eslint src/**/*.ts",
+    "lint:test": "eslint test/**/*.ts",
+    "lint:fix": "npm run lint:src:fix && npm run lint:test:fix",
+    "lint:src:fix": "eslint src/**/*.ts --fix",
+    "lint:test:fix": "eslint test/**/*.ts --fix",
+    "test": "ts-node test/debug.spec.ts",
+    "test:debug": "node --inspect-brk -r ts-node/register test/debug.spec.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@types/eslint": "^7.2.4",
+    "@types/esprima": "^4.0.2",
+    "@types/esquery": "^1.0.1",
+    "@types/node": "^14.11.11",
+    "@typescript-eslint/eslint-plugin": "^4.5.0",
+    "@typescript-eslint/parser": "^4.5.0",
+    "eslint": "^7.11.0",
+    "eslint-config-prettier": "^6.13.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.1.2",
+    "rimraf": "^3.0.2",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.3"
+  },
+  "dependencies": {
+    "esprima": "^4.0.1",
+    "esquery": "^1.3.1",
+    "tslib": "^2.0.3"
+  }
+}
