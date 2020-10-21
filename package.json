@@ -1,6 +1,6 @@
 {
   "name": "@phenomnomnominal/debug",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Very lazy tool for adding debug logging",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
