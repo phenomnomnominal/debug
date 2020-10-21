@@ -2,6 +2,7 @@ import { parseScript } from 'esprima';
 import { query } from 'esquery';
 import * as ESTree from 'estree';
 import nodeModule from 'module';
+import * as path from 'path';
 import { performance } from 'perf_hooks';
 import { types } from 'util';
 
@@ -23,9 +24,11 @@ export class DebuggerΩ {
   }
 
   public shouldWrap(requirePath: string): boolean {
-    const isNodeModule = nodeModule.builtinModules.includes(requirePath) || requirePath.includes('node_modules');
-    const isIncludedModule = this._include.some((regexp) => regexp.test(requirePath));
-    const isIgnoredModule = this._ignore.some((regexp) => regexp.test(requirePath));
+    const normalisedRequirePath = normalisePath(requirePath);
+    const isNodeModule =
+      nodeModule.builtinModules.includes(normalisedRequirePath) || normalisedRequirePath.includes('node_modules');
+    const isIncludedModule = this._include.some((regexp) => regexp.test(normalisedRequirePath));
+    const isIgnoredModule = this._ignore.some((regexp) => regexp.test(normalisedRequirePath));
     return !((isNodeModule && !isIncludedModule) || isIgnoredModule);
   }
 
@@ -119,4 +122,8 @@ function isPromise(value: unknown): value is Promise<unknown> {
 
 function isFunction<T>(value: unknown): value is T {
   return typeof value === 'function';
+}
+
+function normalisePath(filePath: string): string {
+  return path.sep === path.posix.sep ? filePath : filePath.split(path.sep).join(path.posix.sep);
 }

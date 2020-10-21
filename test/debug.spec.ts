@@ -22,9 +22,9 @@ deepStrictEqual(
   logs.slice(1).join('\n'),
   `
 ▸ init args: []
-▸▸ Fixture args: [ 1, [ 'hello' ], [Function] ]
-▸▸ Fixture return: Fixture { _a: 1, _b: [ 'hello' ], _c: [Function] }
-▸ init return: Fixture { _a: 1, _b: [ 'hello' ], _c: [Function] }
+▸▸ Fixture args: [ 1, [ 'hello' ], [Function (anonymous)] ]
+▸▸ Fixture return: Fixture { _a: 1, _b: [ 'hello' ], _c: [Function (anonymous)] }
+▸ init return: Fixture { _a: 1, _b: [ 'hello' ], _c: [Function (anonymous)] }
 ▸ Fixture.func args: []
 ▸▸ Fixture._func args: [ 1 ]
 ▸▸▸ _c args: [ 1 ]
