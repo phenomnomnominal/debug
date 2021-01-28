@@ -104,7 +104,7 @@ export class DebuggerΩ {
 
   private _getFunctions(map: FuncMap): FuncMap {
     const functions: FuncMap = {} as FuncMap;
-    Object.keys(map)
+    Object.getOwnPropertyNames(map)
       .filter((functionName) => isFunction(map[functionName]) && !types.isProxy(map[functionName]))
       .forEach((functionName) => {
         functions[functionName] = map[functionName];
