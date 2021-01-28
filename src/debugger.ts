@@ -110,7 +110,11 @@ export class DebuggerΩ {
 
   private _getFunctions(map: FuncMap): FuncMap {
     const functions: FuncMap = {} as FuncMap;
-    Object.getOwnPropertyNames(map)
+    // Get all property descriptors:
+    const descriptors = Object.getOwnPropertyDescriptors(map);
+    // Filter out getters and setters:
+    const functionNames = Object.keys(descriptors).filter((d) => descriptors[d].value);
+    functionNames
       .filter((functionName) => isFunction(map[functionName]) && !types.isProxy(map[functionName]))
       .forEach((functionName) => {
         functions[functionName] = map[functionName];
