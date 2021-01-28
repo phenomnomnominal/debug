@@ -95,7 +95,13 @@ export class DebuggerΩ {
   }
 
   private _getArgNames(target: Func | Constructor): Array<string> {
-    const [func] = query(parseScript(`const f = ${target.toString()}`), '[type=/Function/]') as Array<ESTree.Function>;
+    let parsed;
+    try {
+      parsed = parseScript(`const f = ${target.toString()}`);
+    } catch {
+      parsed = parseScript(`class F { ${target.toString()} }`);
+    }
+    const [func] = query(parsed, '[type=/Function/]') as Array<ESTree.Function>;
     return func.params.map((param) => {
       const [identifier] = query(param, 'Identifier') as Array<ESTree.Identifier>;
       return identifier.name;
