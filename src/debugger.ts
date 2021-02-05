@@ -14,19 +14,19 @@ export class DebuggerΩ {
   private _ignore: DebugIgnores;
 
   constructor(options: Partial<DebugOptions>) {
-    const { header = '', ignore = [], include = [] } = options;
+    const { ignore = [], include = [] } = options;
 
     this._include = include;
     this._ignore = ignore;
     this._logger = new DebugLoggerΩ(options);
-    this._logger.raw(`${header} starting ${Date.now()}`.trimStart());
   }
 
   public shouldWrap(requirePath: string): boolean {
     const isNodeModule = nodeModule.builtinModules.includes(requirePath) || requirePath.includes('node_modules');
     const isIncludedModule = this._include.some((regexp) => regexp.test(requirePath));
     const isIgnoredModule = this._ignore.some((ignore) => ignore === requirePath);
-    return !((isNodeModule && !isIncludedModule) || isIgnoredModule);
+    const isDebuggerModule = requirePath.includes(__dirname);
+    return !(isDebuggerModule || (isNodeModule && !isIncludedModule) || isIgnoredModule);
   }
 
   public wrap(module: unknown): unknown {

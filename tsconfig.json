@@ -4,7 +4,10 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
-    "lib": ["dom", "esnext"],
+    "lib": [
+      "dom",
+      "esnext"
+    ],
     "moduleResolution": "node",
     "noEmitOnError": true,
     "noUnusedLocals": true,
@@ -14,7 +17,13 @@
     "strict": true,
     "target": "ES5",
     "outDir": "./dist",
-    "typeRoots": ["./node_modules/@types/"],
+    "typeRoots": [
+      "./node_modules/@types/"
+    ],
   },
-  "exclude": ["./node_modules/**/*", "./dist/**/*", "./test/**/*"]
+  "exclude": [
+    "./node_modules/**/*",
+    "./dist/**/*",
+    "./test/**/*"
+  ]
 }
